@@ -13,11 +13,9 @@ const { formatDate, compareDates } = require('everything-services');
 ### Date Formatting
 
 ```javascript
-formatDate('en', '2024-03-20', 'YYYY-MM-DD'); // return "2024-03-20"
-formatDate('th', '2024-03-20', 'BBBB'); // return B.E. year
-
-// returns Day.js object
-const dateObj = formatDate('en', '2024-03-20');
+formatDate('2024-03-20', 'YYYY-MM-DD'); // return "2024-03-20"
+formatDate(false); // return date now
+formatDate('2024-03-20', 'BBBB', 'th'); // return B.E. year
 ```
 
 ### Date Comparison
