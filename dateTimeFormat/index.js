@@ -5,16 +5,28 @@ const buddhistEra = require("dayjs/plugin/buddhistEra");
 const customParseFormat = require("dayjs/plugin/customParseFormat");
 const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
 const isSameOrBefore = require("dayjs/plugin/isSameOrBefore");
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
 
 dayjs.extend(isSameOrBefore);
 dayjs.extend(isSameOrAfter);
 dayjs.extend(customParseFormat);
 dayjs.extend(buddhistEra);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
-const formatDate = (date, format, locale) => {
+const validateLocale = (locale) => {
+  const validLocales = ['en', 'th'];
+  if (!validLocales.includes(locale)) {
+    throw new Error(`Not support locale: ${locale}`);
+  }
+}
+
+const formatDate = (date, format, locale = "en") => {
   try {
-    const localeSelected = locale || "en";
-    dayjs.locale(localeSelected);
+    validateLocale(locale)
+
+    dayjs.locale(locale);
 
     let dateFormatted = date ? dayjs(date) : dayjs();
     return format ? dateFormatted.format(format) : dateFormatted;
