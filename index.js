@@ -1,29 +1,12 @@
-const { formatDate, compareDates, dayjs } = require("./dateTimeFormat");
+const services = require("./src");
 
-const formatDate = formatDate;
-const compareDates = compareDates;
-const dayjs = dayjs;
+// const service = {
+//   formatDate,
+//   compareDates,
+//   dayjs,
+//   getBase64,
+// };
 
-const getBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = function () {
-      const result = reader.result;
-      return resolve(result);
-    };
-    reader.onerror = function (error) {
-      return reject(error);
-    };
-    reader.readAsDataURL(file);
-  });
+module.exports = {
+  services,
 };
-
-const service = {
-  formatDate,
-  compareDates,
-  dayjs,
-  getBase64,
-};
-
-module.exports = service;
