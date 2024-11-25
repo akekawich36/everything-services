@@ -23,7 +23,7 @@ const validateLocale = (locale) => {
 };
 
 class DateTimeFormatter {
-  constructor(defaultTimezone = "UTC", defaultLocale = "en", defaultFormat = "") {
+  constructor(defaultTimezone = "UTC", defaultLocale = "en", defaultFormat = "DD/MM/YYYY") {
     this.defaultTimezone = defaultTimezone;
     this.defaultFormat = defaultFormat;
     this.defaultLocale = defaultLocale;
@@ -53,6 +53,7 @@ class DateTimeFormatter {
   locale(locale) {
     validateLocale(locale);
     this._locale = locale;
+    this._date = this._date.locale(locale); 
     return this;
   }
 
