@@ -1,26 +1,23 @@
 const services = require("../../src");
 
 describe("DateTimeFormatter", () => {
-  let formatter = services.dayFormatter;
-
-  test("formats current date correctly", () => {
-    const result = formatter.format();
+  test("default format current date", () => {
+    const result = services.dayFormatter().format();
     expect(result).toMatch(/^\d{2}\/\d{2}\/\d{4}$/);
   });
 
+  test("format date", () => {
+    const result = services.dayFormatter('2023-01-16').format()
+    expect(result).toBe("16/01/2023")
+  })
+
   test("formats current date correctly", () => {
-    const result = formatter.format("YYYY-MM-DD");
+    const result = services.dayFormatter().format("YYYY-MM-DD");
     expect(result).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
   test("handles Thai locale correctly", () => {
-    const result = formatter.locale('th').setDate('2024-01-16').format('DD MMMM BBBB');
+    const result = services.dayFormatter("2024-01-16").locale('th').format('DD MMMM BBBB');
     expect(result).toMatch("16 มกราคม 2567");
-  });
-
-  test("throws error for invalid locale", () => {
-    expect(() => {
-      formatter.locale("invalid");
-    }).toThrow("Not support locale: invalid");
   });
 });

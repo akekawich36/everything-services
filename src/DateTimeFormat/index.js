@@ -23,67 +23,76 @@ const validateLocale = (locale) => {
 };
 
 class DateTimeFormatter {
-  constructor(defaultTimezone = "UTC", defaultLocale = "en", defaultFormat = "DD/MM/YYYY") {
+  constructor(
+    defaultTimezone = "UTC",
+    defaultLocale = "en",
+    defaultFormat = "DD/MM/YYYY"
+  ) {
     this.defaultTimezone = defaultTimezone;
     this.defaultFormat = defaultFormat;
     this.defaultLocale = defaultLocale;
     this._date = dayjs();
     this._locale = defaultLocale;
-    
-    return new Proxy(this, {
-      apply: (target, thisArg, argumentsList) => {
-        return target.setDate(...argumentsList);
-      }
-    });
+
+    const formatter = (date) => {
+      return new FormatterInstance(
+        date,
+        this.defaultTimezone,
+        this.defaultLocale,
+        this.defaultFormat
+      );
+    };
+
+    formatter.tz = this.tz;
+    formatter.getTimezone = this.getTimezone;
+
+    return formatter;
   }
 
-  /**
-   * @param {Date|string|number} [date]
-   * @returns {DateTimeFormatter}
-   */
-  setDate(date) {
-    this._date = date ? dayjs(date) : dayjs();
+  tz(tz) {
+    this.defaultTimezone = tz;
     return this;
   }
 
-  /**
-   * @param {string} locale
-   * @returns {DateTimeFormatter}
-   */
+  getTimezone() {
+    return this.defaultTimezone;
+  }
+}
+
+class FormatterInstance {
+  constructor(date, timezone, locale, format) {
+    this._date = date ? dayjs(date) : dayjs();
+    this._locale = locale;
+    this.defaultFormat = format;
+    this.defaultTimezone = timezone;
+
+    return this._date.locale(this._locale).format(this.defaultFormat)
+  }
+
   locale(locale) {
     validateLocale(locale);
     this._locale = locale;
-    this._date = this._date.locale(locale); 
+    this._date = this._date.locale(locale);
     return this;
   }
 
-  /**
-   * @param {string} [format]
-   * @returns {string} 
-   */
   format(format = this.defaultFormat) {
     return this._date.locale(this._locale).format(format);
   }
 
-  /**
-   * @param {string} tz
-   * @returns {DateTimeFormatter}
-   */
   tz(tz) {
     this._date = this._date.tz(tz);
     return this;
   }
 
-  /**
-   * @returns {string} 
-   */
   getTimezone() {
     return this._date.tz() || this.defaultTimezone;
   }
 
-  /**
-   * @returns {DateTimeFormatter}
-   */
+  isSameOrBefore(date) {
+    return this._date.isSameOrBefore(date);
+  }
+
   reset() {
     this._date = dayjs();
     this._locale = this.defaultLocale;
@@ -91,5 +100,5 @@ class DateTimeFormatter {
   }
 }
 
-const dayFormatter = new DateTimeFormatter()
+const dayFormatter = new DateTimeFormatter();
 module.exports = dayFormatter;
