@@ -1,7 +1,5 @@
-const dayFormatter = require("./services/DateTimeFormat");
-const { getBase64 } = require("./services/FileReader");
+const dayFormatter = require("./DateTimeFormat");
 
 module.exports = {
   dayFormatter,
-  getBase64,
 };

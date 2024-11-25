@@ -1,17 +1,17 @@
 {
-  "name": "everything-services",
+  "name": "all-everything-services",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "babel src -d dist",
+    "prepublishOnly": "npm run build"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dayjs": "^1.11.13",
-    "build": "babel src -d dist",
-    "prepublishOnly": "npm run build"
+    "dayjs": "^1.11.13"
   },
   "devDependencies": {
     "@babel/cli": "^7.25.9",

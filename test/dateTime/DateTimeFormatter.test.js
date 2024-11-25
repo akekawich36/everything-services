@@ -1,7 +1,7 @@
-const { dayFormatter } = require("../../src");
+const services = require("../../src");
 
 describe("DateTimeFormatter", () => {
-  let formatter = dayFormatter;
+  let formatter = services.dayFormatter;
 
   test("formats current date correctly", () => {
     const result = formatter.format("YYYY-MM-DD");

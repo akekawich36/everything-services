@@ -1,25 +1,17 @@
 ## Installation
 
 ```bash
-npm install everything-services
+npm install all-everything-services
 ```
 
 ## Usage
 
 ```javascript
-const { formatDate, compareDates } = require('everything-services');
+const services = require('all-everything-services');
 ```
 
 ### Date Formatting
-
 ```javascript
-formatDate('2024-03-20', 'YYYY-MM-DD'); // return "2024-03-20"
-formatDate(false); // return date now
-formatDate('2024-03-20', 'BBBB', 'th'); // return B.E. year
-```
-
-### Date Comparison
-
-```javascript
-const result = compareDates('2024-03-20', '2024-03-21'); // return Boolean
+services.dayFormetter; // return date now on dayjs
+services.dayFormetter.setDate('2023-01-16').locale('th').format('DD MMMM BBBB'); // return 16 มกราคม 2566
 ```
