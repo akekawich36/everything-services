@@ -1,5 +1,5 @@
-const dayFormatter = require("./DateTimeFormat");
+const dayjs = require("./DateTimeFormat");
 
 module.exports = {
-  dayFormatter,
+  dayjs,
 };
