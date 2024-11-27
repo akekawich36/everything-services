@@ -2,6 +2,13 @@
   "name": "all-everything-services",
   "version": "2.2.1",
   "description": "",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "/dist",
+    "/types"
+  ],
+
   "scripts": {
     "test": "jest",
     "build": "babel src -d dist && npx -p typescript tsc src/**/*.js --declaration --allowJs --emitDeclarationOnly --outDir types",
