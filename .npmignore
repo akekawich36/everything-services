@@ -1,0 +1,12 @@
+src/
+!dist/
+!types/
+test/
+
+.git/
+.gitignore
+node_modules/
+logs/
+*.log
+*.env
+coverage/
